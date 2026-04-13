@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <string.h>
+#define STATIONS 5
+int main() {
+    char stationNames[STATIONS][20] = {
+        "Central",
+        "Park Street",
+        "City Mall",
+        "Airport",
+        "Bus Stand"
+    };
+    int choice;
+    int source = -1, destination = -1;
+    int fare = 0;
+    int booked = 0;
+    while (1) {
+        printf("\n===== Metro Train Booking System =====\n");
+        printf("1. View Stations\n");
+        printf("2. Book Ticket\n");
+        printf("3. Show Ticket Details\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+        switch (choice) {
+            case 1: 
+                printf("\nAvailable Stations:\n");
+                for (int i = 0; i < STATIONS; i++) {
+                    printf("%d. %s\n", i + 1, stationNames[i]);
+                }
+                break;
+            case 2: 
+                printf("\nAvailable Stations:\n");
+                for (int i = 0; i < STATIONS; i++) {
+                    printf("%d. %s\n", i + 1, stationNames[i]);
+                }
+
+                printf("Enter source station number: ");
+                scanf("%d", &source);
+
+                printf("Enter destination station number: ");
+                scanf("%d", &destination);
+                if (source < 1 || source > STATIONS ||
+                    destination < 1 || destination > STATIONS) {
+                    printf("Invalid station number!\n");
+                    booked = 0;
+                }
+                else if (source == destination) {
+                    printf("Source and destination cannot be the same!\n");
+                    booked = 0;
+                }
+                else {
+                    int distance = source - destination;
+                    if (distance < 0)
+                        distance = -distance;
+
+                    fare = distance * 10;
+                    booked = 1;
+                    printf("Ticket booked successfully!\n");
+                }
+                break;
+            case 3: 
+                if (!booked) {
+                    printf("No ticket booked yet!\n");
+                } else {
+                    printf("\n===== Ticket Details =====\n");
+                    printf("Source      : %s\n", stationNames[source - 1]);
+                    printf("Destination : %s\n", stationNames[destination - 1]);
+                    printf("Fare        : Rs.%d\n", fare);
+                }
+                break;
+            case 4:
+                printf("Exiting program...\n");
+                return 0;
+            default:
+                printf("Invalid choice! Please try again.\n");
+        }
+    }
+    return 0;
+}
